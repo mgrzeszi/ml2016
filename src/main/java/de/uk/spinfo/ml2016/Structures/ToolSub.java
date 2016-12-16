@@ -7,4 +7,10 @@ public class ToolSub {
 	private String name;
 
 	private ToolPart tp;
+
+	public ToolSub(Character id, String name, ToolPart tp) {
+		this.id = id;
+		this.name = name;
+		this.tp = tp;
+	}
 }
