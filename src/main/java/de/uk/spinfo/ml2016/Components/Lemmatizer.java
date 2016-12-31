@@ -3,6 +3,7 @@ package de.uk.spinfo.ml2016.Components;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import is2.data.SentenceData09;
 
@@ -22,7 +23,12 @@ public class Lemmatizer {
 		sentence.init(tokens.toArray(new String[0]));
 		sentence = lemmatizer.apply(sentence);
 
-		return new ArrayList<String>(Arrays.asList(Arrays.copyOfRange(sentence.plemmas, 1, sentence.plemmas.length)));
+		// return new ArrayList<String>(Arrays.asList(Arrays.copyOfRange(sentence.plemmas, 1, sentence.plemmas.length)));
+		
+		// strip sentence delimiters
+		return new ArrayList<String>(Arrays.asList(Arrays.copyOfRange(sentence.plemmas, 1, sentence.plemmas.length)))
+				.stream().filter(e -> !e.equals("--")).collect(Collectors.toList());
+
 	}
 
 }

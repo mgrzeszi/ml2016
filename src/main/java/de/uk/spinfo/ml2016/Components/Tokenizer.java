@@ -3,6 +3,7 @@ package de.uk.spinfo.ml2016.Components;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
@@ -21,10 +22,13 @@ public class Tokenizer {
 
 	public List<String> tokenize(String string) {
 		List<String> result = new ArrayList<String>();
+		Pattern punctuation = Pattern.compile("[,.;:!?&\\-]");
 
 		for (String sentence : sentencer.sentDetect(string))
 			for (String token : tokenizer.tokenize(sentence))
-				result.add(token);
+				// strip punctuation
+				if (!punctuation.matcher(token).find())
+					result.add(token);
 
 		return result;
 	}
